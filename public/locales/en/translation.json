@@ -1,0 +1,24 @@
+{
+    "welcome text": "Welcome to the react-i18next tutorial",
+    "ُEmail":"Email",
+    "Password":"Password",
+    "formatNumber": "Formatting {{num, number}} in the selected language",
+    "formatCurrency": "Displaying {{price, currency}} in the selected locale",
+    "formatDate": "Today's date: {{today, date}}",
+    "clickCount": "You've clicked {{count}} time",
+    "clickCount_plural": "You've clicked {{count}} times",
+    "menu" : {
+        "aboutProject" : "About the project",
+        "contactUs": "Contact us" 
+},
+     "Dashboard":"Dashboard",
+     "app_title": "React-i18next tutorial",
+     "languages": "Languages" ,
+
+     "errors": { 
+     "name": "Name is required Field",
+     "email": "Email is required Field"
+  }
+     
+
+  }

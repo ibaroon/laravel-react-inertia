@@ -1,0 +1,124 @@
+import InputError from "@/Components/InputError";
+import InputLabel from "@/Components/InputLabel";
+import TextInput from "@/Components/TextInput";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Head, Link, useForm } from '@inertiajs/react';
+import { useTranslation } from "react-i18next";
+import Select from 'react-select'; //npm install react-select
+
+export default function Create({auth,users,permissions,success,warning}){
+const { t, i18n } = useTranslation();
+const {data,setData,post,errors} = useForm({
+  name:'',
+  users:'',
+    permission:''
+   
+})
+
+
+const onSubmit=(e)=>{
+e.preventDefault();
+post(route('roles.store'))
+}
+
+
+    return(
+      
+            <AuthenticatedLayout
+        user={auth.user}
+            header={
+                <div className='flex justify-between item-center'>
+                <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200 leading-tight">
+                {t("Create new Role")}
+                </h2>
+               </div>}
+        >
+
+<Head title={t("Create new Role")} />
+
+<div className="py-12">
+    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+    { success && (<div className='bg-emerald-500 py-2 px-4 text-white rounded mb-4'>
+ {success}
+</div>)}
+
+{ warning && (<div className='bg-orange-500 py-2 px-4 text-white rounded mb-4'>
+ {warning}
+</div>)}
+
+        <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
+            <div className="p-6 text-gray-900 dark:text-gray-100">
+                    <div className="p-6 text-gray-900 dark:text-gray-100">
+
+<form onSubmit={onSubmit} className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+
+
+<div className="mt-4">
+<InputLabel 
+htmlFor="role_name" 
+value={t("Name")}/>
+
+<TextInput 
+id="role_name" 
+type="text" 
+name="name" 
+value={data.name}  
+className="mt-1 block w-full"
+isFocused={true}
+onChange={e => setData('name',e.target.value)}/>
+
+<InputError message={errors.name} className="mt-2"/>
+</div>
+
+
+<div className="mt-4">
+<InputLabel 
+htmlFor="users" 
+value={t("User")}/>
+
+<Select 
+id="users" 
+name="users" 
+isMulti
+options={users.map(opt => ({ label: opt.name, value: opt.id }))}
+onChange={ opt => [setData('users',opt)]}
+/> 
+
+<InputError message={errors.users} className="mt-2"/>
+</div>
+
+<div className="mt-4">
+<InputLabel 
+htmlFor="permission" 
+value={t("Permissions")}/>
+
+<Select 
+id="permission" 
+name="permission" 
+options={permissions.map(opt => ({ label: opt.name, value: opt.id }))}
+isMulti
+onChange={ opt => [setData('permission',opt)]}
+/>
+
+
+<InputError message={errors.permission} className="mt-2"/>
+</div>
+
+
+
+
+<div className="mt-4 text-right">
+<Link href={route('roles.index')} className="bg-gray-100 py-1 px-3 text-gray-800 rounded shadow transition-all hover:bg-gray-200 mr-2">{t("Cancel")}</Link>
+<button className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600 text-sm">{t("Submit")}</button>
+</div>
+</form>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </AuthenticatedLayout>
+    )
+}
